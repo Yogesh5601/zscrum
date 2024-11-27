@@ -67,8 +67,12 @@ export default function ProfilePage() {
 
   const getUserDetails = async () => {
     try {
-      const email = { email: session?.user?.email };
-      const response = await axios.post("/api/user/get-user", { email });
+      const email =  session?.user?.email ;
+      const response = await axios.get("/api/user/get-user", {
+        params: {
+          email,
+        },
+      });
       setFields(response.data.result); // Set fields with API response
     } catch (error) {
       console.error("Error fetching user details:", error);

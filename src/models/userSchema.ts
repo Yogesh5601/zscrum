@@ -12,7 +12,7 @@ export const userSchema = new Schema(
       default: "Tenant",
     },
     ratings: [{ type: Number }],
-    // isProfileComplete:{type:Boolean, default:false}
+    isProfileComplete:{type:Boolean, default:false}
   },
   { timestamps: true }
 );

@@ -1,7 +1,7 @@
-import { Schema } from "mongoose";
-
+import mongoose, { Schema } from "mongoose";
 export const InvitationSchema = new Schema({
-  landlordId: { type: Schema.Types.ObjectId, ref: "Landlord" },
+  landlordId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  TenantId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // "User" must match the model name
   tenantEmail: String,
   propertyDetails: String,
   token: String,
