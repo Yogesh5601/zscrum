@@ -3,8 +3,8 @@ import SignUp from "@/components/sign-up";
 import React, { useState } from "react";
 
 const LoginSelector = () => {
-  const [selectedOption, setSelectedOption] = useState(""); // Track selected option
-  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal visibility
+  const [selectedOption, setSelectedOption] = useState(""); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (event: any) => {
     const value = event.target.value;

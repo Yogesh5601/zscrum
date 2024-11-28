@@ -38,7 +38,6 @@ export async function POST(req: NextRequest) {
     const savedInvitation = await Invitation.create({
       landlordId,
       tenantEmail,
-      // propertyDetails,
       token,
       status: "Pending",
       createdAt: new Date(),

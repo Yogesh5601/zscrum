@@ -46,7 +46,6 @@ export default function ProfilePage() {
 
       if (response.status === 200) {
         console.log("Field updated successfully!");
-        // Optionally update the state or re-fetch user details
       } else {
         console.error("Unexpected response status:", response.status);
       }

@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import InviteModal from "../SendInvite";
-import axios from "axios";
 
 const ProfileCard = ({ logedInUser}) => {
   const { data: session } = useSession();

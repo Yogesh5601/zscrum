@@ -15,14 +15,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Providers>
-          <Header />
-          <main className="min-h-screen"> {children}</main>
-          <Footer />
-        </Providers>
-      </body>
-    </html>
+    
+      <html lang="en">
+        <body>
+          <Providers>
+            <Header />
+            <main className="min-h-screen"> {children}</main>
+            <Footer />
+          </Providers>
+        </body>
+      </html>
   );
 }

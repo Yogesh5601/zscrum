@@ -13,7 +13,7 @@ const email = session.user.email
       const response = await axios.get(`/api/user/get-user`, {
         params: { email },
       });
-       console.log(response,"response")
+      //  console.log(response,"response")
        setLogenInUser(response.data.result)
     } catch (error) {
       console.log(error)

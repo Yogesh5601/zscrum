@@ -11,7 +11,7 @@ const InviteModal = ({ isOpen, onClose, logedInUser }) => {
         landlordId: logedInUser._id,
         tenantEmail: invitationEmail,
       });
-      console.log(response,'response');
+      // console.log(response,'response');
     } catch (error) {
         console.log(error)
     }

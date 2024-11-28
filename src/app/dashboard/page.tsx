@@ -1,4 +1,3 @@
-"use client";
 import DashboardPage from "@/view/Dashboard";
 import { useSession } from "next-auth/react";
 

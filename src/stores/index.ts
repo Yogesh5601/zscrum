@@ -3,7 +3,7 @@ import { thunk } from "redux-thunk";
 import generalReducer from "./reducers/generalReducer"
 
 const rootReducer = combineReducers({
-  generalReducer: generalReducer,
+  generals: generalReducer,
 });
 
 export const store = configureStore({
@@ -11,3 +11,6 @@ export const store = configureStore({
 //   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

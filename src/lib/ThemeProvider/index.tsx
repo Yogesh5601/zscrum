@@ -1,7 +1,9 @@
 "use client";
+import { store } from "@/stores";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { useState, useEffect } from "react";
+import { Provider } from "react-redux";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -20,8 +22,14 @@ export default function Providers({ children }: ProvidersProps) {
   }
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
-      <SessionProvider>{children}</SessionProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem={true}
+      >
+        <SessionProvider>{children}</SessionProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }

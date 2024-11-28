@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const landordEmail = req.nextUrl.searchParams.get("email");
-    console.log(landordEmail, "land lord email");
+    const _id = req.nextUrl.searchParams.get("_id");
+    console.log(_id, "land lord email");
 
     await dbConnect();
-    const result = await Invitation.find({ landlordId: "6745b1697c7158c48b705b6e" }).populate('tenantId')
+    const result = await Invitation.find({  }).populate('tenantId')
 
     console.log(result, "result for all tenants");
     return NextResponse.json({

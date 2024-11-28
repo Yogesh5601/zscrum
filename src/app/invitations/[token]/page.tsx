@@ -1,29 +1,28 @@
 "use client";
 import axios from "axios";
 import React, { use, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/stores";
 
-// Accept the token as a part of the dynamic route params
 const Invitation = ({ params }: { params: Promise<{ token: string }> }) => {
-  // Unwrap the token using React.use() hook
   const { token } = use(params);
-
-  console.log(token, "Token from params");
+  const { data: session, status } = useSession(); // Get session and status
+  const loggedInUser = useSelector(
+    (state: RootState) => state.generals.logedInuser
+  );
 
   const [invitation, setInvitation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(token, "Token from params");
-
-  // Function to fetch the invitation details using the token
   const fetchInvitation = async () => {
     try {
       console.log(token);
       const response = await axios.get("/api/invite/invitations", {
         params: { token },
       });
-      console.log(response.data.result, "res");
+      // console.log(response.data.result, "res");
       if (response.data.success) {
         setInvitation(response.data.result);
       } else {
@@ -38,9 +37,10 @@ const Invitation = ({ params }: { params: Promise<{ token: string }> }) => {
   };
 
   // Function to handle accepting or rejecting the invitation
-  const respondToInvitation = async (status) => {
+  const respondToInvitation = async (status: string) => {
     try {
       const response = await axios.post("/api/invite/respond", {
+        tenantId: loggedInUser._id,
         token,
         status,
       });
@@ -63,8 +63,15 @@ const Invitation = ({ params }: { params: Promise<{ token: string }> }) => {
     }
   }, [token]);
 
+  // Ensure user is authenticated before fetching data
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      setError("You need to log in to access this page.");
+    }
+  }, [status]);
+
   // Loading, error, and no invitation states
-  if (loading) {
+  if (loading || status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-lg text-gray-600">Loading...</p>

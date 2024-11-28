@@ -41,11 +41,10 @@ const Header = () => {
         ) : (
           <div className="w-full flex items-end gap-4 justify-end">
             <div className="px-4 py-2 border rounded cursor-pointer">
-              <Link href={'/invitations'}> Invitations</Link>
+              <Link href={"/invitations"}> Invitations</Link>
             </div>
             <div className="px-4 py-2 border rounded cursor-pointer">
-              {" "}
-              Submit a Review
+              <Link href={"/submit-review"}>Submit a Review</Link>
             </div>
             <img
               src={session?.user?.image || "/default-avatar.png"}

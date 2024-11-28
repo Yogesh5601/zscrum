@@ -2,16 +2,25 @@ import dbConnect from "@/lib/dbconnect";
 import { Invitation } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:NextRequest) {
-    console.log("********Respon accept reject called********")
+export async function POST(req: NextRequest) {
+  console.log("********Response accept/reject called********");
+
   try {
-    const { token, status } = await req.json();
+    const { tenantId, token, status } = await req.json();
+    console.log(tenantId, "tenant id");
 
     // Validate the input
     if (!token || !status) {
       return NextResponse.json({
         success: false,
         message: "Token and status are required",
+      });
+    }
+
+    if (status === "Accepted" && !tenantId) {
+      return NextResponse.json({
+        success: false,
+        message: "Tenant ID is required when accepting an invitation",
       });
     }
 
@@ -27,13 +36,19 @@ export async function POST(req:NextRequest) {
       });
     }
 
-    // Update the invitation status
+    // Update the status and add tenantId if status is "Accepted"
     invitation.status = status;
+
+    if (status === "Accepted" && tenantId) {
+      invitation.tenantId = tenantId; // Add tenantId when status is Accepted
+    }
+
+    // Save the updated document (this adds the new field to the document)
     await invitation.save();
 
     return NextResponse.json({
       success: true,
-      message: `Invitation ${status}ed successfully`,
+      message: `Invitation ${status.toLowerCase()}ed successfully`,
       result: invitation,
     });
   } catch (error) {
