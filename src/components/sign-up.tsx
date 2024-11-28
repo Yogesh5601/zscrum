@@ -8,7 +8,7 @@ export default function SignUp() {
     setLoading(true);
     try {
       await signIn("google", {
-        callbackUrl: "/profile",
+        callbackUrl: "/",
         prompt: "select_account",
       });
     } catch (error) {

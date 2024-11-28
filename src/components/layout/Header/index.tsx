@@ -22,7 +22,9 @@ const Header = () => {
   return (
     <div className="w-full flex justify-between items-center px-6 py-2 border-b border-black">
       <div className="w-8/12">
-        <Link className="text-xl font-bold" href={`/`}>Header</Link>
+        <Link className="text-xl font-bold" href={`/`}>
+          Header
+        </Link>
       </div>
       {/* <div className="">
         <ul className="w-full flex gap-2">
@@ -38,8 +40,12 @@ const Header = () => {
           <LoginSelector />
         ) : (
           <div className="w-full flex items-end gap-4 justify-end">
-            <div className="px-4 py-2 border rounded cursor-pointer"> I am landloard</div>
-            <div className="px-4 py-2 border rounded cursor-pointer"> Submit a Review</div>
+            <div className="px-4 py-2 border rounded cursor-pointer">
+              <Link href={"/invitations"}> Invitations</Link>
+            </div>
+            <div className="px-4 py-2 border rounded cursor-pointer">
+              <Link href={"/submit-review"}>Submit a Review</Link>
+            </div>
             <img
               src={session?.user?.image || "/default-avatar.png"}
               alt="Profile"

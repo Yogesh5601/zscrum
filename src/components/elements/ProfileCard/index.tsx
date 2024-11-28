@@ -1,9 +1,21 @@
+"use client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import InviteModal from "../SendInvite";
 
-const ProfileCard = () => {
+const ProfileCard = ({ logedInUser}) => {
+  const { data: session } = useSession();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {data: session} = useSession()
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="w-full min-h-screen flex flex-col md:flex-row gap-4 p-6 bg-[#1a1a1a] text-white px-28">
       {/* Left Side */}
@@ -34,11 +46,19 @@ const ProfileCard = () => {
             </Link>
           </div>
           <div className="w-full flex  text-center">
-            <Link
-              href={`/profile`}
+            <div
+              onClick={handleOpen}
               className="w-full text-[#2cbb5d] bg-[#339f595d] px-4 py-2 rounded"
             >
               Add Tenent
+            </div>
+          </div>
+          <div className="w-full flex  text-center">
+            <Link
+              href={`/tenants`}
+              className="w-full text-[#2cbb5d] bg-[#339f595d] px-4 py-2 rounded"
+            >
+              Tenants
             </Link>
           </div>
         </div>
@@ -126,6 +146,12 @@ const ProfileCard = () => {
           </div>
         </div>
       </div>
+
+      <InviteModal
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        logedInUser={logedInUser}
+      />
     </div>
   );
 };

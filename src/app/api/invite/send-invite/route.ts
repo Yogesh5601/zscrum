@@ -7,25 +7,26 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   console.log("**********send invitation api called*********");
   try {
-    const { landlordId, tenantEmail, propertyDetails } = await req.json();
+    const { landlordId, tenantEmail } = await req.json();
     console.log(
       "initation details:",
       landlordId,
-      tenantEmail,
-      propertyDetails
+      tenantEmail
     );
-    await dbConnect()
+
+    await dbConnect();
 
     // Generate unique token
     const token = crypto.randomBytes(32).toString("hex");
     console.log(token, "token");
 
     // Send email with invitation link
-    const invitationLink = `${process.env.BASE_URL}/invitation?token=${token}`;
+    const invitationLink = `${process.env.NEXT_PUBLIC_URL}/invitation?token=${token}`;
     const subject = "Rental Invitation";
     const invitation = `You have been invited to connect by a landlord. Click the link to respond: ${invitationLink}`;
 
-    const emailSend = await sendMail(tenantEmail, subject, invitation);
+    const emailSend = await sendMail(subject, tenantEmail, invitation);
+    console.log(emailSend, "email send");
     if (!emailSend) {
       return NextResponse.json({
         success: false,
@@ -37,7 +38,6 @@ export async function POST(req: NextRequest) {
     const savedInvitation = await Invitation.create({
       landlordId,
       tenantEmail,
-      propertyDetails,
       token,
       status: "Pending",
       createdAt: new Date(),
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error: any) {
-   return NextResponse.json({
+    return NextResponse.json({
       success: false,
       message: error.message || "failed to send invitation",
     });

@@ -1,8 +1,8 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export const LandlordSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User" },
-  tenants: [{ type: Schema.Types.ObjectId, ref: "Tenant" }],
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  tenants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tenant" }],
   invitations: [
     {
       email: String,

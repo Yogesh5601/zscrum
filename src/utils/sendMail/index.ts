@@ -1,13 +1,14 @@
 import nodemailer from "nodemailer";
 
 export async function sendMail(
-  toEmail: string,
   subject: string,
+  toEmail: string,
+
   invitation: string
 ): Promise<boolean> {
   // Create the transporter
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     auth: {
       user: process.env.NODEMAILER_EMAIL,
       pass: process.env.NODEMAILER_PASS,
@@ -19,8 +20,10 @@ export async function sendMail(
     from: process.env.NODEMAILER_EMAIL,
     to: toEmail,
     subject: subject,
-    invitation: invitation,
+    text: invitation,
   };
+
+  console.log(mailOptions, "mail options");
 
   // Send the email and handle the promise
   try {
